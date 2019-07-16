@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <p v-if="onSale">On Sale!</p>
+        <section class="product">
+            <a :href="link" target="__blank" class="product-image">
+                <img v-bind:src="image" alt="">
+            </a>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p>{{ description }}{{ product }}である。</p>
+                <!-- 
+                v-if, v-else-if, v-else : inserting elements to the DOM
+                 -->
+                <p v-if="inventory > 10">In Stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0 ">Almost sold out</p>
+                <p v-else>Out of Stock</p>
+
+                <ul>
+                    <!-- 
+                    'v-for' like an assembaly line. Each item gets picked up by a robotic arm as the items getting carried by the convator belt, and making a list accordingly.
+
+                    details is the "collection" of our data 
+                    detail is the nickname or 'alias' of the elements we are iterating on as we loop through the "collection".
+                    We can use the alias to print out as eaach item as we loop through them. 
+                    -->
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+                <!-- 
+                It's highly recommended to make a special key attribute so vue can keep track of each node's identaty.
+
+                Here we use shortcode v-bind to bind the key to an ID
+                -->
+                <div v-for="variant in variants" :key="variant.variantID">
+                    <!-- 
+                    Show the variant color with the dot '.' notation 
+                    -->
+                    <p>{{ variant.variantColor }}</p>
+                </div>
+                <ul>
+                    <li v-for="size in sizes">{{ size.size }}</li>
+                </ul>
+
+                <!-- 
+                v-show : It will add style 'display: none;' if false or show element if true
+                -->
+                <p v-show="inStock">This element is True</p>
+                <p v-show="!inStock">This element is False</p>
+            </div>
+        </section>
+    </div>
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

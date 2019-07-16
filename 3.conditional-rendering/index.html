@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+<body>
+    <div class="nav-bar"></div>    
+    <div id="app">
+        <p v-if="onSale">On Sale!</p>
+        <section class="product">
+            <a :href="link" target="__blank" class="product-image">
+                <!-- 
+                    v-bind:
+                    Think of it like glue.
+                    Gluing the attribute to the expression.
+
+                    v-bind Shorthand use colon :
+                    :attribute
+                -->
+                <img v-bind:src="image" alt="">
+            </a>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p>{{ description }}{{ product }}である。</p>
+                <!-- 
+                imagine v-if and v-else like a window 
+                v-if = true : window opens and shows inside.
+                v-if = false : window doesn't open insead
+                v-else opens
+                
+                e.g.
+                <p v-if="inStock">In Stock</p>
+
+                Conditional rendering 
+                Can also be thought of like levels of cups catching a ball being droped from above.
+
+                Important to Note:
+                The v-if will add or remove an element from the DOM
+                 -->
+                <p v-if="inventory > 10">In Stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0 ">Almost sold out</p>
+                <p v-else>Out of Stock</p>
+
+                <!-- 
+                If the app requires a DOM to be displayed or not frequently use
+                'v-show'
+                Instead of inserting and inserting a element over and over again. v-show
+                toggles the visibility.
+                It will add style 'display: none;'
+                -->
+
+                <p v-show="inStock">This element is True</p>
+                <p v-show="!inStock">This element is False</p>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script> 
+</body>
+</html>

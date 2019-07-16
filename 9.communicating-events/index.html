@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <div class="cart">
+            <!-- passing the id to this expression but showing the length -->
+            <p>cart {{ cart.length }}</p>
+        </div>
+        <!-- 
+        add component name 
+        bind prop(premium) as a custom attribute. 
+
+        Add listener for adding to cart
+        Imagin a radio that can receive the event emission from when the “Add to Cart” button was clicked.
+        
+        Since this radio is on product, which is nested within our root instance, the radio can blast the announcement that a click happened, which will trigger the updateCart method, which lives on the root instance.
+
+        @add-to-cart="updateCart"
+        This code essentially translates to: “When you hear that the “Add to Cart” event happened, run the updateCart method in the root instance.
+
+
+        bind emmit function @remove-from-cart, @add-to-cart
+        When emmit is heard run function (removeItemFromCart, updateCart)
+        -->
+        <product :premium="premium" @add-to-cart="updateCart" @remove-from-cart="removeItemFromCart"></product>
+    </div>
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

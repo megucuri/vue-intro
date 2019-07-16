@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <p v-if="onSale">On Sale!</p>
+        <section class="product">
+            <a :href="link" target="__blank" class="product-image">
+                <img v-bind:src="image" alt="">
+            </a>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p>{{ description }}{{ product }}である。</p>
+                <p v-if="inStock">In Stock</p>
+                <p v-else :class="{ 'crossed-text': !inStock}">Out of Stock</p>
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+                <!-- 
+                With :style add an object(backgroundColor) 
+                How we are changing it is with the color in the data property.
+
+                Vue will render the backgroundColor
+
+                Style Binding:
+                    <p :style="{color: color(red)}">...</p>
+
+                    Camelcaseing
+                    <p :style="{fontSize: fontSize(13px)}">...</p>
+
+                    To use hyphen use '' qutation marks
+                    <p :style="{'font-size': fontSize}">...</p>
+                    
+                    JS
+                    data: {
+                        color: 'red',
+                        fontSize: '13px'
+                    }
+
+
+                    To make it more readable style bind it with an 'object'
+                    <p :style="styleObjcet">...</p>
+                    
+                    JS
+                    data: {
+                        styleObject{
+                            color: 'red',
+                            fontSize: '13px'
+                        }
+                    }
+
+
+                    To bind multiple styles from an array
+                    <p :style="[styleObjcet, styleObject2]">...</p>
+                    
+                    JS
+                    data: {
+                        styleObject{
+                            color: 'red',
+                            fontSize: '13px'
+                        }
+
+                         styleObject2{
+                            margin: '5px',
+                            padding: '20px'
+                        }
+                    }
+
+
+                -->
+                <p  :style="{color:color}">testing inline variable style-bind</p>
+                <p :style="testingStyle">testing inline style</p>
+                <p :style="testingStyle2">testing inline style 2</p>
+                <p :style="[testingStyle, testingStyle2]">testing inline style array (testing style 1 & 2)</p>
+
+                <!--
+                "v-on" shortcode.
+                    @eventName
+                -->
+                <div class="color-box"
+                v-for="variant in variants" 
+                :key="variant.variantID"
+                :style="{ backgroundColor: variant.variantColor }" 
+                @mouseover="updateProduct(variant.variantImage)"
+                ></div>
+                <ul>
+                    <li v-for="size in sizes">{{ size.size }}</li>
+                </ul>
+                <!-- 
+                Simply stated:
+                button has a v-on: listening for click.
+                When clicked v-on hears then triggers an event handler.
+
+                If we are out of stock we can use the disable-bind to disable the button to be clicked
+
+
+
+                Class Binding:
+
+                To bind a class use ':class="{expression: condition}"'
+                This says...
+                :class="{ disabledButton: !inStock}
+                bind disableButton class if inStock is false
+
+                e.g.
+                <div class="color-box"
+                :class="{ active: activeClass, 'text-danger': errorClass}">
+                ...
+                </div>
+
+                JS
+                data: {
+                    activeClass: true,
+                    errorClass: false,
+                }
+
+                Since the activeClass is 'true' we will add the class 'active'
+
+                After rendered:
+                  <div class="color-box active">...</div>
+
+                the inital class(color-box) is still there after evaluating
+
+
+
+                Bind Object of Classes:
+                <div :class="classObject">...</div>
+
+                JS
+                data: {
+                    classObject: {
+                        active: true,
+                        'text-danger': false,
+                    }
+                }
+
+                If true 'active' class will be added
+                <div class="active">...</div>
+
+
+                Bind Array of Classes:
+                <div :class="[activeClass, errorClass]">...</div>
+
+                JS
+                data: {
+                    activeClass: 'active',
+                    errorClass: 'text-danger',
+                }
+
+                After Render...
+                <div class="active text-danger">...</div>
+
+                
+                
+                Bind Class Cobnditionaly 
+                with the ternary operator
+                <div :class="[isActive ? activeClass : '']">...</div>
+
+                JS
+                data: {
+                    isActive: true,
+                    activeClass: 'active',
+                }
+
+                After render...
+                <div class="active">...</div>
+                since isActive is true, 'active' class will be added.
+
+                
+                Ternary Operator:
+                The conditional operator ?:, commonly known as the ternary conditional operator, evaluates a Boolean expression, and returns the result of evaluating one of two expressions, depending on whether the Boolean expression evaluates to true or false. 
+                https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/conditional-operator
+
+                -->
+                <p :class="{'test-active': booleanClass}">testing</p>
+                <p class="intial-class" 
+                :class="{'test-active': booleanClass}">testing with intial class</p>
+                <p class="intial-class" 
+                :class="testClass">testing boolean to show one or the other class</p>
+                <p class="intial-class" 
+                :class="[testClass, testClass2]">testing with multiple classes</p>
+                <p class="intial-class" 
+                :class="[booleanClass ? trueClass : '']">testing with ternary operator</p>
+
+
+                <button v-on:click="addToCart"
+                :disabled="!inStock"
+                :class="{ disabledButton: !inStock}">Add to Cart</button>
+                <div class="cart">
+                    <p>cart {{ cart }}</p>
+                </div>
+                <button v-if="cart > 0" @click="subtractFromCart">Take out form Cart</button>
+            </div>
+        </section>
+    </div>
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

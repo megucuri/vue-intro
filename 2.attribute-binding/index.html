@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+<body>
+    <div class="nav-bar"></div>    
+    <div id="app">
+        <section class="product">
+            <a :href="link" target="__blank" class="product-image">
+                <!-- 
+                    we want image data to be dynamically bound  here
+
+                    use: v-bind:
+
+                    'v-bind' dynamically binds an attribute to an expression.
+                    Think of it like glue.
+                    Gluing the attribute to the expression.
+                    
+                    In this case:
+                    v-bind:src(attribute)="expression"
+
+                    We will be using 'v-bind' a lot. So we will be using a Shorthand
+                    
+                    v-bind Shorthand:
+                    :src='image' //just use a colon. 
+                -->
+                <img v-bind:src="image" alt="">
+            </a>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p>{{ description }}{{ product }}である。</p>
+            </div>
+        </section>
+    </div>
+
+
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script> 
+</body>
+</html>

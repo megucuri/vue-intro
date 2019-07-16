@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <p v-if="onSale">On Sale!</p>
+        <section class="product">
+            <a :href="link" target="__blank" class="product-image">
+                <img v-bind:src="image" alt="">
+            </a>
+            <div class="product-info">
+                <!-- 
+                To show 'brand product' instead of doing this...
+                <h1>{{ brand }} {{ product }}</h1> 
+                We will use computed property
+                -->
+                <!-- <h1 v-if="onSale">{{ title }}</h1> -->
+                <h1>{{ showTitle }}</h1>
+                <p>{{ description }}{{ product }}である。</p>
+                <!-- <p :class="{ 'crossed-text': !inStock}">In Stock</p> -->
+                <p v-if="inStock">In Stock</p>
+                <p v-else :class="{ 'crossed-text': !inStock}">Out of Stock</p>
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+                <!-- 
+                Code before...
+                <div class="color-box"
+                v-for="variant in variants" 
+                ></div> 
+
+                Now instead of passing in the variantImage, we’ll pass in the index.
+                index in variant and updateProduct
+                -->
+                <div class="color-box"
+                v-for="(variant, index) in variants" 
+                :key="variant.variantID"
+                :style="{ backgroundColor: variant.variantColor }" 
+                @mouseover="updateProduct(index)"
+                ></div>
+                <ul>
+                    <li v-for="size in sizes">{{ size.size }}</li>
+                </ul>
+                <button v-on:click="addToCart"
+                :disabled="!inStock"
+                :class="{ disabledButton: !inStock}">Add to Cart</button>
+                <div class="cart">
+                    <p>cart {{ cart }}</p>
+                </div>
+                <button v-if="cart > 0" @click="subtractFromCart">Take out form Cart</button>
+            </div>
+        </section>
+    </div>
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

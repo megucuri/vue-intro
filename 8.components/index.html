@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <!-- add component name -->
+        <product></product>
+        <product></product>
+        <!-- 
+        bind prop(premium) as a custom attribute. 
+        We are passing premium from our data and bind to it.
+        So if it changes we will recieve that new value.
+        -->
+        <product :premium="premium"></product>
+        <!-- bind custom attribut made by useing props to display proped details -->
+        <product_details :details="details"></product_details>
+
+    </div>
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>

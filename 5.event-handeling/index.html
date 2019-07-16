@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Product Name</title>
+    <link rel="stylesheet" href="./assets/styles/style.css">
+</head>
+
+<body>
+    <div class="nav-bar"></div>
+    <div id="app">
+        <p v-if="onSale">On Sale!</p>
+        <section class="product">
+            <a :href="link" target="__blank" class="product-image">
+                <img v-bind:src="image" alt="">
+            </a>
+            <div class="product-info">
+                <h1>{{ product }}</h1>
+                <p>{{ description }}{{ product }}である。</p>
+                <p v-if="inventory > 10">In Stock</p>
+                <p v-else-if="inventory <= 10 && inventory > 0 ">Almost sold out</p>
+                <p v-else>Out of Stock</p>
+
+                <ul>
+                    <li v-for="detail in details">{{ detail }}</li>
+                </ul>
+                <!-- 
+                It's highly recommended to make a special key attribute so vue can keep track of each node's identaty.
+                -->
+                <div v-for="variant in variants" :key="variant.variantID">
+                    <!-- 
+                    Show the variant Color with the dot '.' notation 
+                    
+                    Since 'v-on' is so common the short hand is @
+                    On mouseover it will trigger a function showing
+                    the variant image by variant image Color.
+                    -->
+                    <p @mouseover="updateProduct(variant.variantImage)">{{ variant.variantColor }}</p>
+                </div>
+                <ul>
+                    <li v-for="size in sizes">{{ size.size }}</li>
+                </ul>
+                <!-- 
+                We want to increment our cart number everytime 
+                the button "Add to Cart" gets clicked.
+
+                "v-on" listens for events happening, in this case 'click'
+                inside the expression, we tell v-on what to do when the
+                event happens.
+
+                The expression: incrament 'cart' by 1 everytime the button is clicked.
+                <button v-on:click="cart += 1" class="btn btn-primary">Add to Cart</button>
+
+                This is readble but as the site gets bigger it's easier to trigger a method
+                
+
+                Simply stated:
+                button has a v-on: listening for click.
+                When clicked v-on hears then triggers an event handler.
+                Imagne an diver(event-handler) diving down to your 
+                addToCard method in my data. It then excutes that logic(function).
+                -->
+                <button v-on:click="addToCart" class="btn btn-primary">Add to Cart</button>
+                <div class="cart">
+                    <p>cart {{ cart }}</p>
+                </div>
+                <button v-if="cart > 0" @click="subtractFromCart" class="btn btn-primary">Take out form Cart</button>
+            </div>
+        </section>
+    </div>
+    <!-- include vue in project -->
+    <script src="https://unpkg.com/vue"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
